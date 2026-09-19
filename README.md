@@ -372,7 +372,7 @@ On Windows with Python 3.14, create a virtual environment and run pip through Py
 ```powershell
 py -3.14 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe -m streamlit run front-end/streamlit_app.py
+.\.venv\Scripts\python.exe -m streamlit run front-end/app.py
 ```
 
 # 6. Generate dataset
