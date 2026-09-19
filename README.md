@@ -248,20 +248,6 @@ Activate it:
 .\venv\Scripts\Activate.ps1
 ```
 
-### macOS / Linux
-
-```bash
-python3 -m venv venv
-```
-
-Activate:
-
-```bash
-source venv/bin/activate
-```
-
----
-
 ## 3. Install Dependencies
 
 ```bash
@@ -426,7 +412,7 @@ F1 Score  : XX.XX%
 
 This project is developed collaboratively by a team of three members.
 
-### 👨‍💻 Member 1 — Machine Learning / Data
+### 👨‍💻 HEYMAALOCHAN — Machine Learning / Data
 
 Responsibilities:
 
@@ -446,7 +432,7 @@ train_model.py
 
 ---
 
-### 👨‍💻 Member 2 — Backend Developer
+### 👨‍💻 Prakash — Backend Developer
 
 Responsibilities:
 
@@ -465,7 +451,7 @@ main.py
 
 ---
 
-### 👨‍💻 Member 3 — Frontend Developer
+### 👨‍💻 Santhosh — Frontend Developer
 
 Responsibilities:
 
