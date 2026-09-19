@@ -121,3 +121,6 @@ def run():
     elif st.session_state.page=="analysis": analysis()
     elif st.session_state.page=="result": result()
     else: insights()
+
+
+run()    
