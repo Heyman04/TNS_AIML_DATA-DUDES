@@ -20,7 +20,8 @@ app = FastAPI(
 # Model Paths
 # --------------------------------------------------
 
-MODEL_DIR = "models"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MODEL_DIR = os.path.join(BASE_DIR, "models")
 
 SCALER_PATH = os.path.join(MODEL_DIR, "scaler.pkl")
 KMEANS_PATH = os.path.join(MODEL_DIR, "kmeans_model.pkl")
@@ -80,6 +81,36 @@ def health_check():
     return {
         "status": "healthy",
         "model_loaded": True
+    }
+
+# --------------------------------------------------
+# Persona Information Endpoint
+# --------------------------------------------------
+
+@app.get("/personas")
+def get_personas():
+
+    if cluster_personas is None:
+        raise HTTPException(
+            status_code=500,
+            detail="Persona information is not loaded"
+        )
+
+    personas = []
+
+    for cluster, details in cluster_personas.items():
+        personas.append({
+            "cluster": int(cluster),
+            "persona": details["persona"],
+            "annual_income_k": details["annual_income_k"],
+            "spending_score": details["spending_score"]
+        })
+
+    personas.sort(key=lambda x: x["cluster"])
+
+    return {
+        "count": len(personas),
+        "personas": personas
     }
 
 
