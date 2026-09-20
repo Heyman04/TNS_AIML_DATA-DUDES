@@ -4,6 +4,8 @@
 	<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=24&pause=900&color=0F766E&center=true&vCenter=true&width=700&lines=Turning+data+into+decisions;Customer+personas+%7C+Loan+approval;Machine+Learning+%2B+FastAPI+%2B+Streamlit" alt="Animated project introduction" />
 </p>
 
+> We take data analysis and technology seriously—without taking ourselves too seriously. Our goal is to crunch numbers, uncover patterns, and deliver cool results.
+
 This repository contains two machine learning applications developed by a six-member team. Each project includes data preparation, model development, and a user-facing application.
 
 ![Python](https://img.shields.io/badge/Python-3.x-3776AB?style=for-the-badge&logo=python&logoColor=white)
