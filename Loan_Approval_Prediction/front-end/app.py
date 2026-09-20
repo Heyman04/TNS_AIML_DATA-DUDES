@@ -1,20 +1,17 @@
 import base64
 import math
+import os
 from pathlib import Path
 
-import joblib
-import pandas as pd
+import requests
 import streamlit as st
 
 
 APP_DIR = Path(__file__).resolve().parent
-PROJECT_ROOT = APP_DIR.parent
-MODEL_PATH = PROJECT_ROOT / "models" / "loan_approval_model.pkl"
-if not MODEL_PATH.exists():
-    MODEL_PATH = PROJECT_ROOT / "models" / "loan_approval_model.joblib"
 ASSETS_DIR = APP_DIR / "assets"
 CURRENCY = "₹"
 FEATURE_COLUMNS = ["income", "credit_score", "loan_amount", "employment_years"]
+API_URL = os.getenv("LOAN_API_URL", "http://127.0.0.1:8000")
 
 st.set_page_config(
     page_title="LoanLens - AI Loan Underwriting",
@@ -82,23 +79,34 @@ st.markdown(
 )
 
 
-@st.cache_resource
-def load_model():
-    return joblib.load(MODEL_PATH) if MODEL_PATH.exists() else None
-
-
-model = load_model()
+@st.cache_data(ttl=10)
+def api_is_healthy():
+    try:
+        response = requests.get(f"{API_URL}/health", timeout=3)
+        response.raise_for_status()
+        return bool(response.json().get("model_loaded"))
+    except requests.RequestException:
+        return False
 
 
 def predict(income, credit_score, loan_amount, years):
-    if model is None:
-        score = (credit_score - 650) / 60 + min(years, 15) / 10 + (income / max(loan_amount, 1) - 3) / 2 - 1
-        probability = 1 / (1 + math.exp(-score))
-        return probability >= 0.5, probability
-    applicant = pd.DataFrame([[income, credit_score, loan_amount, years]], columns=FEATURE_COLUMNS)
-    approved = bool(model.predict(applicant)[0])
-    probability = float(model.predict_proba(applicant)[0][1]) if hasattr(model, "predict_proba") else None
-    return approved, probability
+    try:
+        response = requests.post(
+            f"{API_URL}/predict",
+            json={
+                "income": income,
+                "credit_score": credit_score,
+                "loan_amount": loan_amount,
+                "employment_years": years,
+            },
+            timeout=10,
+        )
+        response.raise_for_status()
+    except requests.RequestException as error:
+        raise RuntimeError("The loan approval backend is unavailable.") from error
+
+    result = response.json()
+    return bool(result["approved"]), result.get("probability")
 
 
 def format_currency(value):
@@ -185,8 +193,9 @@ def main():
             st.markdown("740-850: Prime\n\n670-739: Good\n\n580-669: Fair\n\nBelow 580: Subprime")
         st.caption("🔒 Private processing • LoanLens Engine v2.4")
 
-    status_class = "live" if model is not None else "demo"
-    status_text = "Live Model Active" if model is not None else "Demo Mode - Simulated Predictions"
+    backend_online = api_is_healthy()
+    status_class = "live" if backend_online else "demo"
+    status_text = "API Model Active" if backend_online else "API Offline"
     st.markdown(f'<div class="brand"><div class="brand-mark"><div class="brand-icon">🏦</div><div><div class="brand-name">LoanLens</div><div class="brand-caption">AI-POWERED LOAN ESTIMATION</div></div></div><div class="status {status_class}">{status_text}</div></div>', unsafe_allow_html=True)
     st.markdown('<div class="hero"><h1>Understand your loan prediction in seconds</h1><p>Enter a few financial details to receive a machine-learning-based loan prediction.</p><div class="kpis"><div class="kpi"><div class="kpi-icon">🎯</div><div><div class="kpi-value">94.8%</div><div class="kpi-label">Model accuracy</div></div></div><div class="kpi"><div class="kpi-icon">⚡</div><div><div class="kpi-value">&lt; 0.1s</div><div class="kpi-label">Instant scoring</div></div></div><div class="kpi"><div class="kpi-icon">🛡️</div><div><div class="kpi-value">4 metrics</div><div class="kpi-label">Risk evaluation</div></div></div><div class="kpi"><div class="kpi-icon">🔒</div><div><div class="kpi-value">Private</div><div class="kpi-label">Local processing</div></div></div></div></div>', unsafe_allow_html=True)
 
@@ -202,8 +211,11 @@ def main():
     data = {"income": income, "credit_score": int(credit_score), "loan_amount": loan_amount, "employment_years": int(employment_years)}
     with col_summary:
         if submitted:
-            approved, probability = predict(income, credit_score, loan_amount, employment_years)
-            render_result(approved, probability, data)
+            try:
+                approved, probability = predict(income, credit_score, loan_amount, employment_years)
+                render_result(approved, probability, data)
+            except RuntimeError as error:
+                st.error(str(error) + " Start FastAPI with: python -m uvicorn backend.main:app --reload")
         else:
             render_live_summary(data, tenure, rate)
 
