@@ -1,5 +1,9 @@
 # TNS AIML Data Dudes
 
+<p align="center">
+	<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=24&pause=900&color=0F766E&center=true&vCenter=true&width=700&lines=Turning+data+into+decisions;Customer+personas+%7C+Loan+approval;Machine+Learning+%2B+FastAPI+%2B+Streamlit" alt="Animated project introduction" />
+</p>
+
 This repository contains two machine learning applications developed by a six-member team. Each project includes data preparation, model development, and a user-facing application.
 
 ![Python](https://img.shields.io/badge/Python-3.x-3776AB?style=for-the-badge&logo=python&logoColor=white)
@@ -39,7 +43,28 @@ Applicant Input -> Streamlit Frontend -> FastAPI Backend -> ML Model -> Approval
 
 Folder: `Loan_Approval_Prediction/`
 
+## Tech Stack
+
+| Layer | Technologies |
+| --- | --- |
+| Programming language | Python 3.x |
+| Data processing | pandas, NumPy |
+| Machine learning | scikit-learn |
+| Customer segmentation | K-Means clustering, StandardScaler |
+| Loan prediction | Logistic Regression, Decision Tree, Random Forest |
+| Backend API | FastAPI, Uvicorn, Pydantic |
+| Frontend | Streamlit |
+| API integration | Requests, REST/JSON |
+| Model persistence | Joblib, Pickle |
+| Data visualization | Matplotlib, Seaborn |
+| Testing | Pytest, FastAPI TestClient |
+| Collaboration | Git, GitHub, feature branches, pull requests |
+
 ## Project Workflows
+
+<p align="center">
+	<img src="https://capsule-render.vercel.app/api?type=rect&color=0F766E&height=3&section=header" alt="Animated section divider" width="85%" />
+</p>
 
 ### Customer Persona Segmenter
 
@@ -81,6 +106,38 @@ flowchart LR
 	class F,G output;
 ```
 
+## Project Structure
+
+```text
+TNS_AIML_DATA-DUDES/
+├── README.md
+├── customer-persona-segmenter/
+│   ├── assets/personas/          # Persona images
+│   ├── data/
+│   │   ├── raw/                  # Original customer data
+│   │   └── processed/            # Cleaned customer data
+│   ├── models/                   # K-Means and scaler artifacts
+│   ├── src/                      # Backend, dataset, and training modules
+│   ├── tests/                    # Model tests
+│   ├── app_unsupervised.py      # Streamlit application
+│   ├── main_unsupervised.py     # FastAPI service
+│   ├── dataset_unsupervised.py  # Dataset preparation
+│   ├── train_kmeans.py          # K-Means training
+│   └── requirements.txt
+└── Loan_Approval_Prediction/
+	├── backend/
+	│   └── main.py              # FastAPI loan prediction API
+	├── front-end/
+	│   ├── app.py               # Streamlit application
+	│   └── assets/               # Approved/rejected images
+	├── data/                     # Loan dataset
+	├── graphs/                   # Evaluation charts and metrics
+	├── models/                   # Trained loan models
+	├── reports/                  # Evaluation and analysis reports
+	├── scripts/                  # Training and analysis scripts
+	└── requirements.txt
+```
+
 ## Team Roles
 
 The work is divided among six team members, with three members assigned to each project.
@@ -110,7 +167,8 @@ The work is divided among six team members, with three members assigned to each 
 
 ### Loan Approval Prediction Team
 
-### 🤖 HEYMAALOCHAN - Data and Machine Learning Engineer
+#### Member 4 - Data and Machine Learning Engineer
+
 - Prepare and analyze loan data
 - Perform feature engineering and preprocessing
 - Train and compare classification models
