@@ -110,8 +110,7 @@ The work is divided among six team members, with three members assigned to each 
 
 ### Loan Approval Prediction Team
 
-### <img src="https://img.icons8.com/color/48/doraemon.png" width="24" height="24" /> HEYMAALOCHAN - Data and Machine Learning Engineer
-
+### 🤖 HEYMAALOCHAN - Data and Machine Learning Engineer
 - Prepare and analyze loan data
 - Perform feature engineering and preprocessing
 - Train and compare classification models
