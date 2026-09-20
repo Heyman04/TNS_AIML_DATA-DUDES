@@ -188,7 +188,6 @@ The work is divided among six team members, with three members assigned to each 
 - Connect Streamlit to the FastAPI backend
 - Display approval probability and risk factors
 
-Replace `Member 1` through `Member 6` with the team members' names.
 
 ## Collaboration
 
