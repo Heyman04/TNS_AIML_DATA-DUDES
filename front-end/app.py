@@ -2,8 +2,7 @@ import base64
 import math
 from pathlib import Path
 
-import joblib
-import pandas as pd
+import requests
 import streamlit as st
 
 
@@ -51,16 +50,7 @@ div[data-testid="stFormSubmitButton"] button:hover { background:#17595B; color:#
 """
 st.markdown(CSS, unsafe_allow_html=True)
 
-
-@st.cache_resource
-def load_model():
-    if MODEL_PATH.exists():
-        return joblib.load(MODEL_PATH)
-    return None
-
-
-model = load_model()
-
+BACKEND_URL = "http://127.0.0.1:8000"
 
 def demo_probability(income, credit_score, loan_amount, years):
     z = (credit_score - 650) / 60 + min(years, 15) / 10 + (income / max(loan_amount, 1) - 3) / 2 - 1.0
@@ -68,14 +58,22 @@ def demo_probability(income, credit_score, loan_amount, years):
 
 
 def predict(income, credit_score, loan_amount, years):
-    if model is None:
-        probability = demo_probability(income, credit_score, loan_amount, years)
-        return probability >= 0.5, probability
+    response = requests.post(
+        f"{BACKEND_URL}/predict",
+        json={
+            "income": income,
+            "credit_score": credit_score,
+            "loan_amount": loan_amount,
+            "employment_years": years,
+        },
+        timeout=10,
+    )
 
-    applicant = pd.DataFrame([[income, credit_score, loan_amount, years]], columns=FEATURE_COLUMNS)
-    approved = bool(model.predict(applicant)[0])
-    probability = float(model.predict_proba(applicant)[0][1]) if hasattr(model, "predict_proba") else None
-    return approved, probability
+    response.raise_for_status()
+
+    result = response.json()
+
+    return bool(result["approved"]), result["probability"]
 
 
 def quick_checks(income, credit_score, loan_amount, years):
@@ -135,8 +133,6 @@ def render_empty():
 
 st.markdown('<div class="hero"><h1>Loan Approval Predictor</h1><p>Enter the applicant details to see how the trained model rates the application.</p></div>', unsafe_allow_html=True)
 
-if model is None:
-    st.info(f"Demo mode: {MODEL_PATH.name} was not found, so results use a placeholder formula.")
 
 col_form, col_result = st.columns([1, 1], gap="large")
 with col_form:
