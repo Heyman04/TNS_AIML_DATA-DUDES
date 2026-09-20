@@ -2,6 +2,13 @@
 
 This repository contains two machine learning applications developed by a six-member team. Each project includes data preparation, model development, and a user-facing application.
 
+![Python](https://img.shields.io/badge/Python-3.x-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Machine Learning](https://img.shields.io/badge/Machine%20Learning-Scikit--learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)
+![FastAPI](https://img.shields.io/badge/API-FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![Streamlit](https://img.shields.io/badge/UI-Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
+
+> Two practical ML products. One collaborative team. Data becomes decisions.
+
 ## Projects
 
 ### 1. Customer Persona Segmenter
@@ -31,6 +38,48 @@ Applicant Input -> Streamlit Frontend -> FastAPI Backend -> ML Model -> Approval
 ```
 
 Folder: `Loan_Approval_Prediction/`
+
+## Project Workflows
+
+### Customer Persona Segmenter
+
+```mermaid
+flowchart LR
+	A[Customer Data] --> B[Clean and Explore]
+	B --> C[Scale Features]
+	C --> D((K-Means Clustering))
+	D --> E[Persona Mapping]
+	E --> F[FastAPI Service]
+	F --> G[Streamlit Dashboard]
+
+	classDef data fill:#e8f5f2,stroke:#00796b,color:#123;
+	classDef model fill:#fff1d6,stroke:#ef8b00,color:#321;
+	classDef app fill:#e8efff,stroke:#3457d5,color:#123;
+	class A,B,C data;
+	class D,E model;
+	class F,G app;
+```
+
+### Loan Approval Prediction
+
+```mermaid
+flowchart LR
+	A[Applicant Details] --> B[Streamlit Form]
+	B --> C[FastAPI /predict]
+	C --> D[Preprocessing Pipeline]
+	D --> E((Classification Model))
+	E --> F[Approval Probability]
+	F --> G[Risk Summary]
+
+	classDef input fill:#e8f5f2,stroke:#00796b,color:#123;
+	classDef service fill:#e8efff,stroke:#3457d5,color:#123;
+	classDef model fill:#fff1d6,stroke:#ef8b00,color:#321;
+	classDef output fill:#fce8ef,stroke:#c2185b,color:#321;
+	class A,B input;
+	class C,D service;
+	class E model;
+	class F,G output;
+```
 
 ## Team Roles
 
@@ -83,25 +132,6 @@ The work is divided among six team members, with three members assigned to each 
 - Display approval probability and risk factors
 
 Replace `Member 1` through `Member 6` with the team members' names.
-
-## Running the Loan Approval Application
-
-Start the backend:
-
-```powershell
-cd Loan_Approval_Prediction
-python -m uvicorn backend.main:app --reload
-```
-
-Start the frontend in a second terminal:
-
-```powershell
-cd Loan_Approval_Prediction
-python -m streamlit run front-end/app.py
-```
-
-- FastAPI documentation: `http://127.0.0.1:8000/docs`
-- Streamlit application: `http://localhost:8501`
 
 ## Collaboration
 
