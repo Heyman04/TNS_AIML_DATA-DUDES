@@ -110,7 +110,7 @@ The work is divided among six team members, with three members assigned to each 
 
 ### Loan Approval Prediction Team
 
-#### Member 4 - Data and Machine Learning Engineer
+#### <img src="https://raw.githubusercontent.com/Tencent/nHentai/master/public/favicon.ico" width="22" height="22" /> HEYMAALOCHAN - Data and Machine Learning Engineer
 
 - Prepare and analyze loan data
 - Perform feature engineering and preprocessing
