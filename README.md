@@ -146,21 +146,21 @@ The work is divided among six team members, with three members assigned to each 
 
 ### Customer Persona Segmenter Team
 
-#### Member 1 - Data and Machine Learning Engineer
+#### AATHIKA - Data and Machine Learning Engineer
 
 - Clean and analyze customer data
 - Prepare features for clustering
 - Train and evaluate the K-Means model
 - Save and document the trained model
 
-#### Member 2 - Backend/API Developer
+#### KAMALINI - Backend/API Developer
 
 - Build the FastAPI service
 - Create persona prediction endpoints
 - Validate incoming data
 - Integrate and test the clustering model
 
-#### Member 3 - Frontend and Visualization Developer
+#### EESHA - Frontend and Visualization Developer
 
 - Build the Streamlit interface
 - Display persona results and charts
@@ -169,21 +169,21 @@ The work is divided among six team members, with three members assigned to each 
 
 ### Loan Approval Prediction Team
 
-### 🤖 HEYMAALOCHAN - Data and Machine Learning Engineer
+### HEYMAALOCHAN - Data and Machine Learning Engineer
 
 - Prepare and analyze loan data
 - Perform feature engineering and preprocessing
 - Train and compare classification models
 - Save the selected model and evaluation reports
 
-#### Member 5 - Backend/API Developer
+#### PRAKASH - Backend/API Developer
 
 - Build the FastAPI loan approval service
 - Create `/health` and `/predict` endpoints
 - Validate loan application requests
 - Load and test the trained model
 
-#### Member 6 - Frontend and Integration Developer
+#### SANTHOSH 6 - Frontend and Integration Developer
 
 - Build the Streamlit loan application interface
 - Create input forms and result views
